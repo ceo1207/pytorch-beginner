@@ -46,6 +46,9 @@ for epoch in range(num_epochs):
     out = model(inputs)
     loss = criterion(out, target)
     # backward
+    # 每次BP 需要对所有的variable grad清零？  在这里，已经建立起了联系  optimizer=optim.Optimizer(model.parameters()) 等效于 model.zero_grad()
+    # 需要将某个指定的variable grad清零，Variable.grad.data.zero_()
+    # 因为一个batch的loss关于weight的导数是所有sample的loss关于weight的导数的累加和）
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
